@@ -4,7 +4,6 @@ import { z } from "zod";
 class UserController {
   public async create(req: Request, res: Response) {
     const { name, email, password } = req.body;
-    console.log(name, email, password);
     try {
       const ZUserSchema = z.object({
         //prettier-ignore
