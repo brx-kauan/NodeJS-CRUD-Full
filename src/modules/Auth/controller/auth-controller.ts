@@ -10,8 +10,8 @@ class AuthController {
 
     try {
       const ZUserSchema = z.object({
-        email: z.string().email({ message: EStatusErrors.E404 }),
-        password: z.string().min(8, { message: EStatusErrors.E404 }),
+        email: z.string().email({ message: EStatusErrors.E400 }),
+        password: z.string().min(8, { message: EStatusErrors.E400 }),
       });
       ZUserSchema.parse({ email, password });
     } catch (e: any) {
