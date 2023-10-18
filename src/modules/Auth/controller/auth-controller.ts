@@ -1,14 +1,17 @@
 import { Request, Response } from "express";
 import { authServices } from "../services/auth-services";
 import z from "zod";
+//enum
+import { EStatusErrors } from "enum/status-errors.enum";
+
 class AuthController {
   public async login(req: Request, res: Response) {
     const { email, password } = req.body;
 
     try {
       const ZUserSchema = z.object({
-        email: z.string().email({ message: "404 Email" }),
-        password: z.string().min(8, { message: "404 Password" }),
+        email: z.string().email({ message: EStatusErrors.E404 }),
+        password: z.string().min(8, { message: EStatusErrors.E404 }),
       });
       ZUserSchema.parse({ email, password });
     } catch (e: any) {

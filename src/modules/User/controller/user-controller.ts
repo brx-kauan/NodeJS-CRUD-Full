@@ -1,29 +1,35 @@
 import { Request, Response } from "express";
 import { userService } from "../services/userServices";
 import { z } from "zod";
+
+//Enum
+import { ECrud } from "enum/crud.enum";
+import { EStatusErrors } from "enum/status-errors.enum";
+import { error } from "console";
+
 class UserController {
   public async create(req: Request, res: Response) {
     const { name, email, password } = req.body;
     try {
       const ZUserSchema = z.object({
         //prettier-ignore
-        name: z.string().min(2, {message: "O nome precisa ter 2 ou mais caracteres."}).optional(),
+        name: z.string().min(2, {message: "Invalid Name."}).optional(),
         //prettier-ignore
-        email: z.string().email({message: "Por favor, Insira um e-mail válido."}),
+        email: z.string().email({message: "Invalid E-mail."}),
         //prettier-ignore
-        password: z.string().min(8, {message: "A senha precisa ter no mínimo 8 caracteres."}),
+        password: z.string().min(8, {message: "Invalid Password"}),
       });
       ZUserSchema.parse({ name, email, password });
       /* res.status(200).json("Dados recebidos e validados com sucesso!"); */
     } catch (e: any) {
       return res.status(400).json({
-        message: "Dados inválidos",
+        message: EStatusErrors.E400,
         error: e.errors,
       });
     }
     try {
       return res.status(200).json({
-        message: "Criado com sucesso.",
+        message: ECrud.CREATE,
         data: await userService.create(name, email, password),
       });
     } catch (e: any) {
@@ -37,15 +43,17 @@ class UserController {
     const userId = req.params.id;
     try {
       //prettier-ignore
-      const ZUserSchema = z.string().uuid({message: "Por favor insira UUID válido."});
+      const ZUserSchema = z.string().uuid({message: "Invalid UUID."});
       ZUserSchema.parse(userId);
     } catch (e: any) {
       return res.status(400).json({
-        message: e.errors,
+        message: EStatusErrors.E400,
+        error: e.errors,
       });
     }
     try {
       return res.status(200).json({
+        message: ECrud.READ,
         data: await userService.read(userId),
       });
     } catch (e: any) {
@@ -61,19 +69,20 @@ class UserController {
     try {
       //prettier-ignore
       const ZUserSchema = z.object({
-        userId: z.string().uuid({message: "Por favor insira UUID válido."}) ,
-        name: z.string().min(2, { message: "O nome precisa ter mais de 2 caracteres" })
+        userId: z.string().uuid({message: "Invalid UUID."}) ,
+        name: z.string().min(2, { message: "Invalid Name." })
       });
       ZUserSchema.parse({ userId, name });
     } catch (e: any) {
       return res.status(400).json({
-        message: e.errors,
+        message: EStatusErrors.E400,
+        error: e.errors,
       });
     }
 
     try {
       return res.status(200).json({
-        message: "Nome de usuário alterado!",
+        message: ECrud.UPDATE,
         data: await userService.update(userId, name),
       });
     } catch (e: any) {
@@ -87,17 +96,18 @@ class UserController {
     const userId = req.params.id;
     try {
       //prettier-ignore
-      const ZUserSchema = z.string().uuid({ message: "Por favor insira UUID válido." });
+      const ZUserSchema = z.string().uuid({ message: "Invalid UUID" });
       ZUserSchema.parse(userId);
     } catch (e: any) {
       return res.status(400).json({
-        message: e.errors,
+        message: EStatusErrors.E400,
+        error: e.errors,
       });
     }
 
     try {
       return res.status(200).json({
-        message: "Usuário excluido",
+        message: ECrud.DELETE,
         data: await userService.delete(userId),
       });
     } catch (e: any) {
