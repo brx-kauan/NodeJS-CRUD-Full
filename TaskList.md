@@ -18,15 +18,15 @@
 -OK- Leitura do usuário deve ser feita pelo uuid
 -OK- Não teremos o read all ou list all
 --- Débitos Técnicos:
---- Autorização: só pode acessar a rota Logado
---- Não pode ler outro usuário
+-OK- Autorização: só pode acessar a rota Logado
+-OK- Não pode ler outro usuário
 
 -- Update
 -OK- Uuid é obrigatório para efetuar a edição
 -OK- A edição é somente para o name
 --- Débitos Técnicos:
---- Autorização: só pode acessar a rota Logado
---- Não pode editar outro usuário
+-OK- Autorização: só pode acessar a rota Logado
+-OK- Não pode editar outro usuário
 
 -- Delete
 --- Todos os dados deste usuário devem ser deletados, como:
@@ -36,6 +36,6 @@
 -OK- OBS.: Caso você utilize esta ferramenta para venda, leia mais sobre LGPD
 
 --- Débitos Técnicos
---- Autorização: só pode acessar a rota Logado
---- Não pode deletar outro usuário
+-OK- Autorização: só pode acessar a rota Logado
+-OK- Não pode deletar outro usuário
 ```
