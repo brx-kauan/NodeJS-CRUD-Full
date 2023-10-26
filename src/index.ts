@@ -1,5 +1,3 @@
-import { main } from "./main";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { main } from "./main"
 
-main.server.listen(3000);
+main.server.listen(3000)
