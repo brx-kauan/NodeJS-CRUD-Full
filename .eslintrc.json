@@ -4,16 +4,13 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
-        "plugin:import/typescript",
-        "prettier"
+        "plugin:import/typescript"
     ],
     "plugins": [
         "@typescript-eslint",
-        "import",
-        "prettier"
+        "import"
     ],
     "rules": {
-        "prettier/prettier": "error",
         "import/order": "error",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-unused-vars": "warn"
